@@ -1,7 +1,8 @@
 import RPi.GPIO as GPIO
 import sys
 from time import sleep
-import nbiot
+from camera import Camera
+from nbiot import NBiot
 pin_input = [17,27,22]
 
 
@@ -12,12 +13,20 @@ def main():
     for pin in pin_input:
         GPIO.setup(pin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
+    cm = Camera()
+    nbiot = NBiot()
+
     print(sys.argv)
+    period = 900
 
-    nbiot.serial_connect()
+    if len(sys.argv)==2:
 
-    if len(sys.argv)>1 and sys.argv[1]=="init":
-       nbiot.serial_init()
+        if sys.argv[1]=="init":
+            nbiot.setting_init()
+        elif sys.argv[1].isdigit():
+            period = int(sys.argv[1])
+
+    print("Period: %d" % period)
 
     level = 0
     count = 0
@@ -33,8 +42,9 @@ def main():
         print("Count: %d" % count)
 
         nbiot.send_data("front_door", count, 0)
+        cm.capturePhoto()
 
-        sleep(5)
+        sleep(period)
 
 
 if __name__ == "__main__":

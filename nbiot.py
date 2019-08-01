@@ -1,4 +1,8 @@
 import serial
+import os
+import json
+import base64
+import sys
 from time import sleep
 
 
@@ -10,7 +14,7 @@ class NBiot:
         sleep(1)
 
 
-    def setting_init(self):
+    def nbiot_init(self):
 
         self.send_cmd("AT+CSQ")
         self.send_cmd("AT+CGATT?")
@@ -23,7 +27,7 @@ class NBiot:
         self.send_cmd("AT+HTTPTERM")
         self.send_cmd("AT+SAPBR=3,1,\"Contype\",\"GPRS\"")
         self.send_cmd("AT+SAPBR=3,1,\"APN\",\"internet.iot\"")
-        # self.send_cmd("AT+SAPBR=1,1")
+        self.send_cmd("AT+SAPBR=1,1")
         self.send_cmd("AT+HTTPINIT")
 
 
@@ -43,7 +47,7 @@ class NBiot:
             result = result.decode('ascii')
 
             if result[0:3]=="AT+":
-                print("[cmd] " + result, end="")
+                print("[cmd] "+result, end="")
             elif result[0:2]!='\r\n':
                 result = result.replace("<br>","\n> ")
                 print("> "+result, end="")
@@ -86,15 +90,66 @@ class NBiot:
         print("")
 
 
+    def send_file(self, filename='./main.py'):
+
+        with open(filename, 'rb') as file:
+            self.send_cmd("AT+HTTPPARA=\"CID\",1")
+            self.send_cmd("AT+HTTPPARA=\"URL\", \"http://ccrc.twnict.com/function/upload_img.php\"")
+            # self.send_cmd("AT+HTTPPARA=\"Content-Disposition\", \"form-data\"")
+
+            data={}
+
+            img = file.read()
+
+            tmp = "------WebKitFormBoundary7MA4YWxkTrZu0gW\r\nContent-Disposition: form-data; name=\"img\"; filename=\"front_door.jpg\"\r\nContent-Type: image/jpeg\r\n\r\n\r\n------WebKitFormBoundary7MA4YWxkTrZu0gW--"
+            # data['img'] = str(base64.b64encode(img))
+
+            # data['img'] = "winnie the pooh is cute"
+
+            # data = json.dumps(data)
+
+            data = tmp
+
+            print("sizeOf", sys.getsizeof(data))
+            filesize = sys.getsizeof(data)
+
+            if self.ser.isOpen():
+                
+                cmd = "AT+HTTPDATA=%d,%d" % (filesize, 10000)
+                self.send_cmd(cmd)
+                sleep(1)
+                (self.ser.write(bytes(data, "ascii"), ))
+
+            sleep(1)
+
+            print("Waiting ",end="", flush=True)
+
+            while True:
+                result = self.ser.readline().decode('ascii')
+                print(".", end="", flush=True)
+
+                if result.find("DOWNLOAD",0, len(result))!=-1:
+                    print("\n"+result)
+                    break
+                elif result.find("OK", 0, len(result))!=-1:
+                    print("\n"+result)
+                    break
+                elif result.find("ERROR", 0, len(result))!=-1:
+                    print("\n"+result)
+                    break
+            print("")
+
+        self.send_cmd_action("AT+HTTPACTION=1")
+
+
     def send_data(self, device, height, pm25):
         
         self.send_cmd("AT+HTTPPARA=\"URL\",\"http://ccrc.twnict.com/function/db_access.php?pass=mimicat&device_name=%s&height=%d&pm25=%d\"" % (device,height,pm25))
         sleep(2)
         self.send_cmd_action("AT+HTTPACTION=0")
         sleep(1)
-        
+
+
 
 if __name__ == "__main__":
-    main()
-
-
+    nbiot = NBiot()

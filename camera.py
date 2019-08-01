@@ -1,7 +1,7 @@
 from picamera import PiCamera
 from time import sleep
-from datetime import datetime
-from requests import post
+from PIL import Image, ImageDraw, ImageFont
+import os
 
 
 class Camera:
@@ -13,24 +13,33 @@ class Camera:
         # self.cm.rotation = 180
         
 
-    def capturePhoto(self, filename = 'front_door.jpg'):
+    def capturePhoto(self, filename = 'front_door.jpg', quality=70):
      
         # take a picture
         self.cm.capture(filename)
+        sleep(1)
         print("save in " + filename)
-        sleep(3)
+
+        im = Image.open(filename)
+
+        before_size = os.path.getsize(filename)
+        print("Before Size: ", before_size)
+
+        im.save(filename, optimize=True, quality=quality)
+
+        after_size = os.path.getsize(filename)
+        print("After Size: ", after_size)
+
+        print("Compression ratio: %.2f" % (before_size/after_size))
+        print("space saving: %.2f" % (1-(after_size/before_size)))
+
+        im.close()
         
-        # send image to server
-
-        url = 'http://ccrc.twnict.com/function/upload_img.php'
-        img = {'img':open('./front_door.jpg','rb')}
-        r = post(url,files=img)
-
-        print("Post Response: %s" % str(r.content).replace("<br/>","\n"))
-        # sleep(900) # a image per half of hour
-
-def main():
-    capturePhoto()
 
 if __name__ == "__main__":
-    main()
+    c = Camera()
+
+    while True:
+        str = input("Please key Enter ")
+        c.capturePhoto()
+

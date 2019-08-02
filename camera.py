@@ -1,6 +1,6 @@
 from picamera import PiCamera
 from time import sleep
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image
 import os
 
 
@@ -13,33 +13,55 @@ class Camera:
         # self.cm.rotation = 180
         
 
-    def capturePhoto(self, filename = 'front_door.jpg', quality=70):
+    def capturePhoto(self, file_path = './front_door.jpg', quality=70):
      
         # take a picture
-        self.cm.capture(filename)
+        self.cm.capture(file_path)
         sleep(1)
-        print("save in " + filename)
 
-        im = Image.open(filename)
+        print("┎------------Image------------")
+        print("| save in " + file_path)
 
-        before_size = os.path.getsize(filename)
-        print("Before Size: ", before_size)
+        im = Image.open(file_path)
 
-        im.save(filename, optimize=True, quality=quality)
+        before_size = os.path.getsize(file_path)
+        # print("| Before Size: ", before_size)
 
-        after_size = os.path.getsize(filename)
-        print("After Size: ", after_size)
+        im.save(file_path, optimize=True, quality=quality)
 
-        print("Compression ratio: %.2f" % (before_size/after_size))
-        print("space saving: %.2f" % (1-(after_size/before_size)))
+        after_size = os.path.getsize(file_path)
+        print("| Size: ", after_size)
 
+        print("| Compression ratio: %.2f" % (before_size/after_size))
+        print("| Space saving: %.2f" % (1-(after_size/before_size)))
+        self.cut_image(file_path)
+        print("┖-----------------------------")
         im.close()
-        
+
+    def cut_image(self, file_path , cut_number = 4):
+        img = Image.open(file_path)
+        print("| Image shape: ", img.size)
+        w, h = img.size
+        x0, y0 = 0, 0
+        x1, y1 = w, 0
+        new_height = h/cut_number
+
+        for i in range(4):
+            y0 = y1
+            y1 = (i+1) * new_height
+            # print((y0, x0, y1, x1))
+            tmp = img.crop((x0, y0, x1, y1))
+            new_filename = 'front_door_%d.jpg' % (i+1)
+            tmp.save(new_filename)
+            print("| Saving in : ", new_filename)
+
 
 if __name__ == "__main__":
     c = Camera()
 
     while True:
         str = input("Please key Enter ")
+        if len(str) != 0 and str == "q":
+            break
         c.capturePhoto()
 

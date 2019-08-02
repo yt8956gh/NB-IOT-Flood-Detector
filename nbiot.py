@@ -3,6 +3,8 @@ import os
 import json
 import base64
 import sys
+import requests
+import traceback
 from time import sleep
 
 
@@ -49,6 +51,7 @@ class NBiot:
             if result[0:3]=="AT+":
                 print("[cmd] "+result, end="")
             elif result[0:2]!='\r\n':
+                result = result.replace("<br/>","\n> ")
                 result = result.replace("<br>","\n> ")
                 print("> "+result, end="")
 
@@ -70,7 +73,14 @@ class NBiot:
         print("Waiting ",end="", flush=True)
 
         while True:
-            result = self.ser.readline().decode('ascii')
+
+            try:
+                result = self.ser.readline().decode('ascii')
+            except:
+                traceback.print_exc()
+                print("The file trasferred is too large")
+                break
+
             print(".", end="", flush=True)
 
             if result.find("+HTTPACTION:",0, len(result))!=-1:
@@ -90,7 +100,7 @@ class NBiot:
         print("")
 
 
-    def send_file(self, filename='./main.py'):
+    def send_file(self, filename='./front_door.jpg'):
 
         with open(filename, 'rb') as file:
             self.send_cmd("AT+HTTPPARA=\"CID\",1")
@@ -98,34 +108,40 @@ class NBiot:
             # self.send_cmd("AT+HTTPPARA=\"Content-Disposition\", \"form-data\"")
 
             data={}
+        
+            url = 'http://ccrc.twnict.com/function/upload_img.php'
+            img = {'img':open(filename, 'rb')}
 
-            img = file.read()
+            req = requests.Request("POST", url, files=img)
+            prepared = req.prepare()
 
-            tmp = "------WebKitFormBoundary7MA4YWxkTrZu0gW\r\nContent-Disposition: form-data; name=\"img\"; filename=\"front_door.jpg\"\r\nContent-Type: image/jpeg\r\n\r\n\r\n------WebKitFormBoundary7MA4YWxkTrZu0gW--"
-            # data['img'] = str(base64.b64encode(img))
+            data = prepared.body
 
-            # data['img'] = "winnie the pooh is cute"
+            self.send_cmd("AT+HTTPPARA=\"CONTENT\", \"%s\"" % prepared.headers['Content-Type'])
 
-            # data = json.dumps(data)
+            print(type(data))
+            # print("Post Response: %s" % str(r.content).replace("<br/>","\n"))
 
-            data = tmp
 
-            print("sizeOf", sys.getsizeof(data))
-            filesize = sys.getsizeof(data)
+            size = int(prepared.headers['Content-Length'])
+            syssize = sys.getsizeof(data)
+            print("size with getsize: ", syssize)
+            print("size with content-Length: ", size)
 
             if self.ser.isOpen():
                 
-                cmd = "AT+HTTPDATA=%d,%d" % (filesize, 10000)
+                cmd = "AT+HTTPDATA=%d,%d" % (size, 10000)
                 self.send_cmd(cmd)
                 sleep(1)
-                (self.ser.write(bytes(data, "ascii"), ))
+                (self.ser.write(data, ))
 
             sleep(1)
 
             print("Waiting ",end="", flush=True)
 
             while True:
-                result = self.ser.readline().decode('ascii')
+                result = self.ser.readline()
+                result = result.decode('ascii')
                 print(".", end="", flush=True)
 
                 if result.find("DOWNLOAD",0, len(result))!=-1:

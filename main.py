@@ -46,7 +46,10 @@ def main():
 
         nbiot.send_data("front_door", level*20, 0)
         cm.capturePhoto()
-        nbiot.send_file()
+        
+        for i in range(4):
+            nbiot.send_file("./front_door_%d.jpg" % (i+1))
+        
         # transfer_file_wifi()
 
         sleep(period)

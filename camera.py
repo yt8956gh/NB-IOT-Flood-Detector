@@ -57,11 +57,24 @@ class Camera:
 
 
 if __name__ == "__main__":
-    c = Camera()
 
-    while True:
-        str = input("Please key Enter ")
-        if len(str) != 0 and str == "q":
-            break
-        c.capturePhoto()
+    import RPi.GPIO as GPIO
+    
+    try:
+        c = Camera()
+        GPIO.setmode(GPIO.BCM)
+        GPIO.setup(2,GPIO.OUT) # for camera IR LED
 
+        while True:
+            str = input("Please key Enter ")
+            if len(str) != 0 and str == "q":
+                break
+
+            GPIO.output(2,1) 
+            sleep(1)
+            c.capturePhoto()
+            GPIO.output(2,0)
+            sleep(1)
+
+    finally:
+        GPIO.cleanup()

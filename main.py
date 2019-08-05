@@ -11,6 +11,7 @@ pin_input = [17,27,22]
 def main():
 
     GPIO.setmode(GPIO.BCM)
+    GPIO.setup(2,GPIO.OUT) # for camera IR LED
 
     for pin in pin_input:
         GPIO.setup(pin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
@@ -45,8 +46,11 @@ def main():
         print("Level: %d" % level)
 
         nbiot.send_data("front_door", level*20, 0)
-        cm.capturePhoto()
         
+        GPIO.output(2, 1)
+        cm.capturePhoto()
+        GPIO.output(2, 0)
+
         for i in range(4):
             nbiot.send_file("./front_door_%d.jpg" % (i+1))
         

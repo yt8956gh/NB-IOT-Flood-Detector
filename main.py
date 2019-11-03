@@ -1,62 +1,79 @@
 import RPi.GPIO as GPIO
-import sys
+import sys, sched, time, threading
 from time import sleep
 from camera import Camera
 from nbiot import NBiot
 from requests import post
 
 pin_input = [17,27,22]
+level = [20,40,60]
+period = 900   # second
+
+cm = Camera()
+nbiot = NBiot()
 
 
 def main():
+
+    global period
+
+    try:
+        GPIO.setmode(GPIO.BCM)
+        GPIO.setup(2,GPIO.OUT) # for camera IR LED
+
+        for pin in pin_input:
+            GPIO.setup(pin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+        
+        print(sys.argv)
+
+        if len(sys.argv)>1:
+
+            if sys.argv[1]=="init":
+                nbiot.nbiot_init()
+            
+            if sys.argv[-1].isdigit():
+                period = int(sys.argv[-1])
+
+        print("Period: %d" % period)
+
+        sensor()
+
+    finally:
+            GPIO.cleanup()
+
+
+
+
+def sensor():
+
+    global level,cm,nbiot,pin_input
+
+    threading.Timer(period, sensor).start()
 
     GPIO.setmode(GPIO.BCM)
     GPIO.setup(2,GPIO.OUT) # for camera IR LED
 
     for pin in pin_input:
         GPIO.setup(pin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+    
+    for i in range(len(pin_input)):
+        if GPIO.input(pin_input[i]):
+            level = i
 
-    cm = Camera()
-    nbiot = NBiot()
+    print("Level: " + str(level))
 
-    print(sys.argv)
-    period = 900
+    nbiot.send_data("test", level[i], 100)
+    
+    GPIO.output(2, 1)
+    cm.capturePhoto()
+    GPIO.output(2, 0)
 
-    if len(sys.argv)>1:
+    for i in range(10):
+        print("<<< ./test_%d.jpg >>>" % (i+1))
+        nbiot.send_file("./test_%d.jpg" % (i+1))
+    
+    # transfer_file_wifi()
 
-        if sys.argv[1]=="init":
-            nbiot.nbiot_init()
-        
-        if sys.argv[-1].isdigit():
-            period = int(sys.argv[-1])
-
-    print("Period: %d" % period)
-
-    level = 0
-    # count = 0
-
-    while True:
-
-        level=0    
-        # count+=10
-
-        for i in range(len(pin_input)):
-            if GPIO.input(pin_input[i]):
-                level = i+1
-        print("Level: %d" % level)
-
-        nbiot.send_data("front_door", level*20, 0)
-        
-        GPIO.output(2, 1)
-        cm.capturePhoto()
-        GPIO.output(2, 0)
-
-        for i in range(4):
-            nbiot.send_file("./front_door_%d.jpg" % (i+1))
-        
-        # transfer_file_wifi()
-
-        sleep(period)
 
 
 def transfer_file_wifi(filePath='./front_door.jpg'):

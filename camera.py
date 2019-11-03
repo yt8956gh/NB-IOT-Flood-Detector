@@ -1,3 +1,5 @@
+# -- coding:utf-8 --
+
 from picamera import PiCamera
 from time import sleep
 from PIL import Image
@@ -13,7 +15,7 @@ class Camera:
         # self.cm.rotation = 180
         
 
-    def capturePhoto(self, file_path = './front_door.jpg', quality=70):
+    def capturePhoto(self, file_path = './test.jpg', quality=70):
      
         # take a picture
         self.cm.capture(file_path)
@@ -38,7 +40,7 @@ class Camera:
         print("┖-----------------------------")
         im.close()
 
-    def cut_image(self, file_path , cut_number = 4):
+    def cut_image(self, file_path , cut_number = 10):
         img = Image.open(file_path)
         print("| Image shape: ", img.size)
         w, h = img.size
@@ -46,12 +48,12 @@ class Camera:
         x1, y1 = w, 0
         new_height = h/cut_number
 
-        for i in range(4):
+        for i in range(cut_number):
             y0 = y1
             y1 = (i+1) * new_height
             # print((y0, x0, y1, x1))
             tmp = img.crop((x0, y0, x1, y1))
-            new_filename = 'front_door_%d.jpg' % (i+1)
+            new_filename = 'test_%d.jpg' % (i+1)
             tmp.save(new_filename)
             print("| Saving in : ", new_filename)
 

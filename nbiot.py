@@ -100,19 +100,23 @@ class NBiot:
         print("")
 
 
-    def send_file(self, filename='./front_door.jpg'):
+    def send_file(self, filename='./test.jpg'):
 
         with open(filename, 'rb') as file:
             self.send_cmd("AT+HTTPPARA=\"CID\",1")
-            self.send_cmd("AT+HTTPPARA=\"URL\", \"http://ccrc.twnict.com/function/upload_img.php\"")
+            self.send_cmd("AT+HTTPPARA=\"URL\", \"http://ccrcapi.isdc.org.tw/datapi_v1/camera_img\"")
             # self.send_cmd("AT+HTTPPARA=\"Content-Disposition\", \"form-data\"")
 
             data={}
         
-            url = 'http://ccrc.twnict.com/function/upload_img.php'
+            url = 'http://crcapi.isdc.org.tw/datapi_v1/camera_img'
             img = {'img':open(filename, 'rb')}
+            form_data = {"access_token":"S0YUPrMAre60igE+iMvsWfdxs5MUwwUUMdjkveK/w73J/ANfPJZJYT3t8OP1tF3H ",
+                    "pass_code":"Winnie the pooh",
+                    "machine_id":0}
 
-            req = requests.Request("POST", url, files=img)
+            req = requests.Request("POST", url, data=form_data, files=img)
+            req.encoding = 'utf8'
             prepared = req.prepare()
 
             data = prepared.body
@@ -158,13 +162,65 @@ class NBiot:
         self.send_cmd_action("AT+HTTPACTION=1")
 
 
-    def send_data(self, device, height, pm25):
-        
-        self.send_cmd("AT+HTTPPARA=\"URL\",\"http://ccrc.twnict.com/function/db_access.php?pass=mimicat&device_name=%s&height=%d&pm25=%d\"" % (device,height,pm25))
-        sleep(2)
-        self.send_cmd_action("AT+HTTPACTION=0")
+    def send_data(self, device, height, battery):
+
+        self.send_cmd("AT+HTTPPARA=\"CID\",1")
+        self.send_cmd("AT+HTTPPARA=\"URL\", \"http://ccrcapi.isdc.org.tw/datapi_v1/sensor_data\"")
+        # self.send_cmd("AT+HTTPPARA=\"Content-Disposition\", \"form-data\"")
+
+        data={}
+    
+        url = 'http://ccrcapi.isdc.org.tw/datapi_v1/sensor_data'
+        form_data = {"access_token":"S0YUPrMAre60igE+iMvsWfdxs5MUwwUUMdjkveK/w73J/ANfPJZJYT3t8OP1tF3H ",
+                "pass_code":"Winnie the pooh",
+                "machine_id":0,
+                "height":height,
+                "battery":battery}
+
+        req = requests.Request("POST", url, data=form_data)
+        prepared = req.prepare()
+
+        data = prepared.body
+
+        self.send_cmd("AT+HTTPPARA=\"CONTENT\", \"%s\"" % prepared.headers['Content-Type'])
+
+        print(type(data))
+        # print("Post Response: %s" % str(r.content).replace("<br/>","\n"))
+
+
+        size = int(prepared.headers['Content-Length'])
+        syssize = sys.getsizeof(data)
+        print("size with getsize: ", syssize)
+        print("size with content-Length: ", size)
+
+        if self.ser.isOpen():
+            
+            cmd = "AT+HTTPDATA=%d,%d" % (size, 10000)
+            self.send_cmd(cmd)
+            sleep(1)
+            (self.ser.write(data.encode(), ))
+
         sleep(1)
 
+        print("Waiting ",end="", flush=True)
+
+        while True:
+            result = self.ser.readline()
+            result = result.decode('ascii')
+            print(".", end="", flush=True)
+
+            if result.find("DOWNLOAD",0, len(result))!=-1:
+                print("\n"+result)
+                break
+            elif result.find("OK", 0, len(result))!=-1:
+                print("\n"+result)
+                break
+            elif result.find("ERROR", 0, len(result))!=-1:
+                print("\n"+result)
+                break
+        print("")
+
+        self.send_cmd_action("AT+HTTPACTION=1")
 
 
 if __name__ == "__main__":

@@ -12,7 +12,7 @@ def main():
 
     while True:
         for i in range(len(pin_input)):
-            print(GPIO.input(pin_input[i]))
+            print("GPIO",pin_input[i],": ",GPIO.input(pin_input[i]))
 
         print()
 

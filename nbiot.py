@@ -173,7 +173,7 @@ class NBiot:
         url = 'http://ccrcapi.isdc.org.tw/datapi_v1/sensor_data'
         form_data = {"access_token":"S0YUPrMAre60igE+iMvsWfdxs5MUwwUUMdjkveK/w73J/ANfPJZJYT3t8OP1tF3H ",
                 "pass_code":"Winnie the pooh",
-                "machine_id":0,
+                "machine_id":device,
                 "height":height,
                 "battery":battery}
 

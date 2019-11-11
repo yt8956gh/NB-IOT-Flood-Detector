@@ -3,10 +3,10 @@ Description=flood-detector
 After=network.target
 
 [Service]
-ExecStart=/usr/bin/python3 -u main.py
+ExecStart=/usr/bin/python3 -u main.py init
 WorkingDirectory=/home/pi/NB-IOT
-StandardOutput=file:/home/pi/NB-IOT/output.log
-StandardError=file:/home/pi/NB-IOT/output.log
+StandardOutput=append:/home/pi/NB-IOT/output.log
+StandardError=append:/home/pi/NB-IOT/output.log
 Restart=always
 User=pi
 

@@ -1,0 +1,1284 @@
+main.py:22: RuntimeWarning: This channel is already in use, continuing anyway.  Use GPIO.setwarnings(False) to disable warnings.
+  GPIO.setup(2,GPIO.OUT) # for camera IR LED
+['main.py', 'init']
+[cmd] AT+CSQ
+> +CSQ: 18,99
+> OK
+
+[cmd] AT+CGATT?
+> +CGATT: 1
+> OK
+
+[cmd] AT+CGNAPN
+> +CGNAPN: 1,"internet.iot"
+> OK
+
+[cmd] AT+CNMP?
+> +CNMP: 38
+> OK
+
+[cmd] AT+CMNB?
+> +CMNB: 3
+> OK
+
+[cmd] AT+NBSC?
+> +NBSC: 1
+> OK
+
+[cmd] AT+CPSI?
+> +CPSI: LTE NB-IOT,Online,466-92,0xDBEC,157758339,69,EUTRAN-BAND8,3640,0,0,-5,-87,-81,13
+> OK
+
+[cmd] AT+HTTPTERM
+> OK
+
+
+
+[cmd] AT+SAPBR=3,1,"Contype","GPRS"
+> OK
+
+[cmd] AT+SAPBR=3,1,"APN","internet.iot"
+> OK
+
+[cmd] AT+SAPBR=1,1
+> ERROR
+
+[cmd] AT+HTTPINIT
+> OK
+
+Period: 900
+Level: [20, 40, 60]
+[cmd] AT+HTTPPARA="CID",1
+> OK
+
+[cmd] AT+HTTPPARA="URL", "http://ccrcapi.isdc.org.tw/datapi_v1/sensor_data"
+> OK
+
+[cmd] AT+HTTPPARA="CONTENT", "application/x-www-form-urlencoded"
+> OK
+
+<class 'str'>
+size with getsize:  177
+size with content-Length:  152
+[cmd] AT+HTTPDATA=152,10000
+> DOWNLOAD
+
+Waiting ..
+OK
+
+
+Waiting .....
+
+<-----Retrieved response from server----->
+
+Method:  1
+Status: 200
+ResLen: 2
+
+<-----Response Text----->
+
+[cmd] AT+HTTPREAD
+> +HTTPREAD: 2
+> ok
+> OK
+
+
+┎------------Image------------
+| save in sensor-V2.jpg
+| Size:  6110
+| Compression ratio: 28.43
+| Space saving: 0.96
+| Image shape:  (720, 480)
+| Saving in :  sensor-V2_1.jpg
+| Saving in :  sensor-V2_2.jpg
+| Saving in :  sensor-V2_3.jpg
+| Saving in :  sensor-V2_4.jpg
+| Saving in :  sensor-V2_5.jpg
+| Saving in :  sensor-V2_6.jpg
+| Saving in :  sensor-V2_7.jpg
+| Saving in :  sensor-V2_8.jpg
+| Saving in :  sensor-V2_9.jpg
+| Saving in :  sensor-V2_10.jpg
+┖-----------------------------
+<<< ./sensor-V2_1.jpg >>>
+[cmd] AT+HTTPPARA="CID",1
+> OK
+
+[cmd] AT+HTTPPARA="URL", "http://ccrcapi.isdc.org.tw/datapi_v1/camera_img"
+> OK
+
+[cmd] AT+HTTPPARA="CONTENT", "multipart/form-data; boundary=083194512a869d8e80e0e293b5772c28"
+> OK
+
+<class 'bytes'>
+size with getsize:  1854
+size with content-Length:  1837
+[cmd] AT+HTTPDATA=1837,10000
+> DOWNLOAD
+
+Waiting ..
+OK
+
+
+Waiting ........
+
+<-----Retrieved response from server----->
+
+Method:  1
+Status: 200
+ResLen: 93
+
+<-----Response Text----->
+
+[cmd] AT+HTTPREAD
+> +HTTPREAD: 93
+> File Name: sensor-V2_1.jpg
+> File Type: image/jpeg
+> File Size: 1.3 KB
+> OK1 sensor-V2
+> OK
+
+
+<<< ./sensor-V2_2.jpg >>>
+[cmd] AT+HTTPPARA="CID",1
+> OK
+
+[cmd] AT+HTTPPARA="URL", "http://ccrcapi.isdc.org.tw/datapi_v1/camera_img"
+> OK
+
+[cmd] AT+HTTPPARA="CONTENT", "multipart/form-data; boundary=36e0d4c39175a6710b86839d5bf76495"
+> OK
+
+<class 'bytes'>
+size with getsize:  1847
+size with content-Length:  1830
+[cmd] AT+HTTPDATA=1830,10000
+> DOWNLOAD
+
+Waiting ..
+OK
+
+
+Waiting .......
+
+<-----Retrieved response from server----->
+
+Method:  1
+Status: 200
+ResLen: 94
+
+<-----Response Text----->
+
+[cmd] AT+HTTPREAD
+> +HTTPREAD: 94
+> File Name: sensor-V2_2.jpg
+> File Type: image/jpeg
+> File Size: 1.29 KB
+> OK2 sensor-V2
+> OK
+
+
+<<< ./sensor-V2_3.jpg >>>
+[cmd] AT+HTTPPARA="CID",1
+> OK
+
+[cmd] AT+HTTPPARA="URL", "http://ccrcapi.isdc.org.tw/datapi_v1/camera_img"
+> OK
+
+[cmd] AT+HTTPPARA="CONTENT", "multipart/form-data; boundary=0000bf511cf1f62784dd0b6746beb346"
+> OK
+
+<class 'bytes'>
+size with getsize:  1857
+size with content-Length:  1840
+[cmd] AT+HTTPDATA=1840,10000
+> DOWNLOAD
+
+Waiting ..
+OK
+
+
+Waiting .......
+
+<-----Retrieved response from server----->
+
+Method:  1
+Status: 200
+ResLen: 93
+
+<-----Response Text----->
+
+[cmd] AT+HTTPREAD
+> +HTTPREAD: 93
+> File Name: sensor-V2_3.jpg
+> File Type: image/jpeg
+> File Size: 1.3 KB
+> OK3 sensor-V2
+> OK
+
+
+<<< ./sensor-V2_4.jpg >>>
+[cmd] AT+HTTPPARA="CID",1
+> OK
+
+[cmd] AT+HTTPPARA="URL", "http://ccrcapi.isdc.org.tw/datapi_v1/camera_img"
+> OK
+
+[cmd] AT+HTTPPARA="CONTENT", "multipart/form-data; boundary=f30ad56a46cbf9fa5a13bd46a6b54f19"
+> OK
+
+<class 'bytes'>
+size with getsize:  1896
+size with content-Length:  1879
+[cmd] AT+HTTPDATA=1879,10000
+> DOWNLOAD
+
+Waiting ..
+OK
+
+
+Waiting .......
+
+<-----Retrieved response from server----->
+
+Method:  1
+Status: 200
+ResLen: 94
+
+<-----Response Text----->
+
+[cmd] AT+HTTPREAD
+> +HTTPREAD: 94
+> File Name: sensor-V2_4.jpg
+> File Type: image/jpeg
+> File Size: 1.34 KB
+> OK4 sensor-V2
+> OK
+
+
+<<< ./sensor-V2_5.jpg >>>
+[cmd] AT+HTTPPARA="CID",1
+> OK
+
+[cmd] AT+HTTPPARA="URL", "http://ccrcapi.isdc.org.tw/datapi_v1/camera_img"
+> OK
+
+[cmd] AT+HTTPPARA="CONTENT", "multipart/form-data; boundary=03cfb6d1b52ba787bcb0a2476a843780"
+> OK
+
+<class 'bytes'>
+size with getsize:  1943
+size with content-Length:  1926
+[cmd] AT+HTTPDATA=1926,10000
+> DOWNLOAD
+
+Waiting ..
+OK
+
+
+Waiting ........
+
+<-----Retrieved response from server----->
+
+Method:  1
+Status: 200
+ResLen: 94
+
+<-----Response Text----->
+
+[cmd] AT+HTTPREAD
+> +HTTPREAD: 94
+> File Name: sensor-V2_5.jpg
+> File Type: image/jpeg
+> File Size: 1.39 KB
+> OK5 sensor-V2
+> OK
+
+
+<<< ./sensor-V2_6.jpg >>>
+[cmd] AT+HTTPPARA="CID",1
+> OK
+
+[cmd] AT+HTTPPARA="URL", "http://ccrcapi.isdc.org.tw/datapi_v1/camera_img"
+> OK
+
+[cmd] AT+HTTPPARA="CONTENT", "multipart/form-data; boundary=9d393288703c2866a679ff579ea34e79"
+> OK
+
+<class 'bytes'>
+size with getsize:  2044
+size with content-Length:  2027
+[cmd] AT+HTTPDATA=2027,10000
+> DOWNLOAD
+
+Waiting ..
+OK
+
+
+Waiting ........
+
+<-----Retrieved response from server----->
+
+Method:  1
+Status: 200
+ResLen: 94
+
+<-----Response Text----->
+
+[cmd] AT+HTTPREAD
+> +HTTPREAD: 94
+> File Name: sensor-V2_6.jpg
+> File Type: image/jpeg
+> File Size: 1.49 KB
+> OK6 sensor-V2
+> OK
+
+
+<<< ./sensor-V2_7.jpg >>>
+[cmd] AT+HTTPPARA="CID",1
+> OK
+
+[cmd] AT+HTTPPARA="URL", "http://ccrcapi.isdc.org.tw/datapi_v1/camera_img"
+> OK
+
+[cmd] AT+HTTPPARA="CONTENT", "multipart/form-data; boundary=a1edf83f83bfda8bba751e7168756145"
+> OK
+main.py:22: RuntimeWarning: This channel is already in use, continuing anyway.  Use GPIO.setwarnings(False) to disable warnings.
+  GPIO.setup(2,GPIO.OUT) # for camera IR LED
+['main.py', 'init']
+[cmd] AT+CSQ
+> +CSQ: 18,99
+> OK
+
+[cmd] AT+CGATT?
+> +CGATT: 1
+> OK
+
+[cmd] AT+CGNAPN
+> +CGNAPN: 1,"internet.iot"
+> OK
+
+[cmd] AT+CNMP?
+> +CNMP: 38
+> OK
+
+[cmd] AT+CMNB?
+> +CMNB: 3
+> OK
+
+[cmd] AT+NBSC?
+> +NBSC: 1
+> OK
+
+[cmd] AT+CPSI?
+> +CPSI: LTE NB-IOT,Online,466-92,0xDBEC,157758339,69,EUTRAN-BAND8,3640,0,0,-5,-87,-81,13
+> OK
+
+[cmd] AT+HTTPTERM
+> ERROR
+
+[cmd] AT+SAPBR=3,1,"Contype","GPRS"
+> OK
+
+[cmd] AT+SAPBR=3,1,"APN","internet.iot"
+> OK
+
+[cmd] AT+SAPBR=1,1
+> ERROR
+
+[cmd] AT+HTTPINIT
+> OK
+
+Period: 900
+Level: [20, 40, 60]
+[cmd] AT+HTTPPARA="CID",1
+> OK
+
+[cmd] AT+HTTPPARA="URL", "http://ccrcapi.isdc.org.tw/datapi_v1/sensor_data"
+> OK
+
+[cmd] AT+HTTPPARA="CONTENT", "application/x-www-form-urlencoded"
+> OK
+
+<class 'str'>
+size with getsize:  177
+size with content-Length:  152
+[cmd] AT+HTTPDATA=152,10000
+> DOWNLOAD
+
+Waiting ..
+OK
+
+
+Waiting .....
+
+<-----Retrieved response from server----->
+
+Method:  1
+Status: 200
+ResLen: 2
+
+<-----Response Text----->
+
+[cmd] AT+HTTPREAD
+> +HTTPREAD: 2
+> ok
+> OK
+
+
+┎------------Image------------
+| save in sensor-V2.jpg
+| Size:  19647
+| Compression ratio: 10.19
+| Space saving: 0.90
+| Image shape:  (720, 480)
+| Saving in :  sensor-V2_1.jpg
+| Saving in :  sensor-V2_2.jpg
+| Saving in :  sensor-V2_3.jpg
+| Saving in :  sensor-V2_4.jpg
+| Saving in :  sensor-V2_5.jpg
+| Saving in :  sensor-V2_6.jpg
+| Saving in :  sensor-V2_7.jpg
+| Saving in :  sensor-V2_8.jpg
+| Saving in :  sensor-V2_9.jpg
+| Saving in :  sensor-V2_10.jpg
+┖-----------------------------
+<<< ./sensor-V2_1.jpg >>>
+[cmd] AT+HTTPPARA="CID",1
+> OK
+
+[cmd] AT+HTTPPARA="URL", "http://ccrcapi.isdc.org.tw/datapi_v1/camera_img"
+> OK
+
+[cmd] AT+HTTPPARA="CONTENT", "multipart/form-data; boundary=83905dd188c95ae781338672d703bcd7"
+> OK
+
+<class 'bytes'>
+size with getsize:  2476
+size with content-Length:  2459
+[cmd] AT+HTTPDATA=2459,10000
+> DOWNLOAD
+
+Waiting ..
+OK
+
+
+Waiting .........
+
+<-----Retrieved response from server----->
+
+Method:  1
+Status: 200
+ResLen: 94
+
+<-----Response Text----->
+
+[cmd] AT+HTTPREAD
+> +HTTPREAD: 94
+> File Name: sensor-V2_1.jpg
+> File Type: image/jpeg
+> File Size: 1.91 KB
+> OK1 sensor-V2
+> OK
+
+
+<<< ./sensor-V2_2.jpg >>>
+[cmd] AT+HTTPPARA="CID",1
+> OK
+
+[cmd] AT+HTTPPARA="URL", "http://ccrcapi.isdc.org.tw/datapi_v1/camera_img"
+> OK
+
+[cmd] AT+HTTPPARA="CONTENT", "multipart/form-data; boundary=aa3dd892d3e2400b56d14122375d8228"
+> OK
+
+<class 'bytes'>
+size with getsize:  3257
+size with content-Length:  3240
+[cmd] AT+HTTPDATA=3240,10000
+> DOWNLOAD
+
+Waiting ..
+OK
+
+
+Waiting ............
+
+<-----Retrieved response from server----->
+
+Method:  1
+Status: 200
+ResLen: 94
+
+<-----Response Text----->
+
+[cmd] AT+HTTPREAD
+> +HTTPREAD: 94
+> File Name: sensor-V2_2.jpg
+> File Type: image/jpeg
+> File Size: 2.67 KB
+> OK2 sensor-V2
+> OK
+
+
+<<< ./sensor-V2_3.jpg >>>
+[cmd] AT+HTTPPARA="CID",1
+> OK
+
+[cmd] AT+HTTPPARA="URL", "http://ccrcapi.isdc.org.tw/datapi_v1/camera_img"
+> OK
+
+[cmd] AT+HTTPPARA="CONTENT", "multipart/form-data; boundary=2c698fdeaf4551dca7da113054dffeb2"
+> OK
+
+<class 'bytes'>
+size with getsize:  3444
+size with content-Length:  3427
+[cmd] AT+HTTPDATA=3427,10000
+> DOWNLOAD
+
+Waiting ..
+OK
+
+
+Waiting ..........
+
+<-----Retrieved response from server----->
+
+Method:  1
+Status: 200
+ResLen: 94
+
+<-----Response Text----->
+
+[cmd] AT+HTTPREAD
+> +HTTPREAD: 94
+> File Name: sensor-V2_3.jpg
+> File Type: image/jpeg
+> File Size: 2.85 KB
+> OK3 sensor-V2
+> OK
+
+
+<<< ./sensor-V2_4.jpg >>>
+[cmd] AT+HTTPPARA="CID",1
+> OK
+
+[cmd] AT+HTTPPARA="URL", "http://ccrcapi.isdc.org.tw/datapi_v1/camera_img"
+> OK
+
+[cmd] AT+HTTPPARA="CONTENT", "multipart/form-data; boundary=fbd79eff440f024f1832110b4e2f2159"
+> OK
+
+<class 'bytes'>
+size with getsize:  3286
+size with content-Length:  3269
+[cmd] AT+HTTPDATA=3269,10000
+> DOWNLOAD
+
+Waiting ..
+OK
+
+
+Waiting ..........
+
+<-----Retrieved response from server----->
+
+Method:  1
+Status: 200
+ResLen: 93
+
+<-----Response Text----->
+
+[cmd] AT+HTTPREAD
+> +HTTPREAD: 93
+> File Name: sensor-V2_4.jpg
+> File Type: image/jpeg
+> File Size: 2.7 KB
+> OK4 sensor-V2
+> OK
+
+
+<<< ./sensor-V2_5.jpg >>>
+[cmd] AT+HTTPPARA="CID",1
+> OK
+
+[cmd] AT+HTTPPARA="URL", "http://ccrcapi.isdc.org.tw/datapi_v1/camera_img"
+> OK
+
+[cmd] AT+HTTPPARA="CONTENT", "multipart/form-data; boundary=e86667dd7ac7ac8f8dc585246be0f3de"
+> OK
+
+<class 'bytes'>
+size with getsize:  3295
+size with content-Length:  3278
+[cmd] AT+HTTPDATA=3278,10000
+> DOWNLOAD
+
+Waiting ..
+OK
+
+
+Waiting .........
+
+<-----Retrieved response from server----->
+
+Method:  1
+Status: 200
+ResLen: 94
+
+<-----Response Text----->
+
+[cmd] AT+HTTPREAD
+> +HTTPREAD: 94
+> File Name: sensor-V2_5.jpg
+> File Type: image/jpeg
+> File Size: 2.71 KB
+> OK5 sensor-V2
+> OK
+
+
+<<< ./sensor-V2_6.jpg >>>
+[cmd] AT+HTTPPARA="CID",1
+> OK
+
+[cmd] AT+HTTPPARA="URL", "http://ccrcapi.isdc.org.tw/datapi_v1/camera_img"
+> OK
+
+[cmd] AT+HTTPPARA="CONTENT", "multipart/form-data; boundary=9478b3c4403e7ef1907556d9f146cbf6"
+> OK
+
+<class 'bytes'>
+size with getsize:  3081
+size with content-Length:  3064
+[cmd] AT+HTTPDATA=3064,10000
+> DOWNLOAD
+
+Waiting ..
+OK
+
+
+Waiting .........
+
+<-----Retrieved response from server----->
+
+Method:  1
+Status: 200
+ResLen: 93
+
+<-----Response Text----->
+
+[cmd] AT+HTTPREAD
+> +HTTPREAD: 93
+> File Name: sensor-V2_6.jpg
+> File Type: image/jpeg
+> File Size: 2.5 KB
+> OK6 sensor-V2
+> OK
+
+
+<<< ./sensor-V2_7.jpg >>>
+[cmd] AT+HTTPPARA="CID",1
+> OK
+
+[cmd] AT+HTTPPARA="URL", "http://ccrcapi.isdc.org.tw/datapi_v1/camera_img"
+> OK
+
+[cmd] AT+HTTPPARA="CONTENT", "multipart/form-data; boundary=0ff988f2a4ef4bdb53630a420f75529c"
+> OK
+
+<class 'bytes'>
+size with getsize:  3472
+size with content-Length:  3455
+[cmd] AT+HTTPDATA=3455,10000
+> DOWNLOAD
+
+Waiting ..
+OK
+
+
+Waiting .............
+
+<-----Retrieved response from server----->
+
+Method:  1
+Status: 200
+ResLen: 94
+
+<-----Response Text----->
+
+[cmd] AT+HTTPREAD
+> +HTTPREAD: 94
+> File Name: sensor-V2_7.jpg
+> File Type: image/jpeg
+> File Size: 2.88 KB
+> OK7 sensor-V2
+> OK
+
+
+<<< ./sensor-V2_8.jpg >>>
+[cmd] AT+HTTPPARA="CID",1
+> OK
+
+[cmd] AT+HTTPPARA="URL", "http://ccrcapi.isdc.org.tw/datapi_v1/camera_img"
+> OK
+
+[cmd] AT+HTTPPARA="CONTENT", "multipart/form-data; boundary=ef6107ed154c8bd24c92d596fe1476b5"
+> OK
+
+<class 'bytes'>
+size with getsize:  3347
+size with content-Length:  3330
+[cmd] AT+HTTPDATA=3330,10000
+> DOWNLOAD
+
+Waiting ..
+OK
+
+
+Waiting ...........
+
+<-----Retrieved response from server----->
+
+Method:  1
+Status: 200
+ResLen: 94
+
+<-----Response Text----->
+
+[cmd] AT+HTTPREAD
+> +HTTPREAD: 94
+> File Name: sensor-V2_8.jpg
+> File Type: image/jpeg
+> File Size: 2.76 KB
+> OK8 sensor-V2
+> OK
+
+
+<<< ./sensor-V2_9.jpg >>>
+[cmd] AT+HTTPPARA="CID",1
+> OK
+
+[cmd] AT+HTTPPARA="URL", "http://ccrcapi.isdc.org.tw/datapi_v1/camera_img"
+> OK
+
+[cmd] AT+HTTPPARA="CONTENT", "multipart/form-data; boundary=f3ac309db973dd35b14d500a439d055a"
+> OK
+
+<class 'bytes'>
+size with getsize:  3349
+size with content-Length:  3332
+[cmd] AT+HTTPDATA=3332,10000
+> DOWNLOAD
+
+Waiting ..
+OK
+
+
+Waiting ............................
+
+<-----Retrieved response from server----->
+
+Method:  1
+Status: 200
+ResLen: 94
+
+<-----Response Text----->
+
+[cmd] AT+HTTPREAD
+> +HTTPREAD: 94
+> File Name: sensor-V2_9.jpg
+> File Type: image/jpeg
+> File Size: 2.76 KB
+> OK9 sensor-V2
+> OK
+
+
+<<< ./sensor-V2_10.jpg >>>
+[cmd] AT+HTTPPARA="CID",1
+> OK
+
+[cmd] AT+HTTPPARA="URL", "http://ccrcapi.isdc.org.tw/datapi_v1/camera_img"
+> OK
+
+[cmd] AT+HTTPPARA="CONTENT", "multipart/form-data; boundary=97db64a538578a8a9f474a29897a2827"
+> OK
+
+<class 'bytes'>
+size with getsize:  3502
+size with content-Length:  3485
+[cmd] AT+HTTPDATA=3485,10000
+> DOWNLOAD
+
+Waiting ..
+OK
+
+
+Waiting ..........
+
+<-----Retrieved response from server----->
+
+Method:  1
+Status: 200
+ResLen: 179
+
+<-----Response Text----->
+
+[cmd] AT+HTTPREAD
+> +HTTPREAD: 179
+> File Name: sensor-V2_10.jpg
+> File Type: image/jpeg
+> File Size: 2.91 KB
+> OK10 sensor-V2
+> 
+> Filename with time: sensor-V2_2019-11-11 17:34:20.jpg
+> Finish Merging Photo
+> OK
+
+
+Level: [20, 40, 60]
+[cmd] AT+HTTPPARA="CID",1
+> OK
+
+[cmd] AT+HTTPPARA="URL", "http://ccrcapi.isdc.org.tw/datapi_v1/sensor_data"
+> OK
+
+[cmd] AT+HTTPPARA="CONTENT", "application/x-www-form-urlencoded"
+> OK
+
+<class 'str'>
+size with getsize:  177
+size with content-Length:  152
+[cmd] AT+HTTPDATA=152,10000
+> DOWNLOAD
+
+Waiting ..
+OK
+
+
+Waiting ......
+
+<-----Retrieved response from server----->
+
+Method:  1
+Status: 200
+ResLen: 2
+
+<-----Response Text----->
+
+[cmd] AT+HTTPREAD
+> +HTTPREAD: 2
+> ok
+> OK
+
+
+┎------------Image------------
+| save in sensor-V2.jpg
+| Size:  3029
+| Compression ratio: 50.14
+| Space saving: 0.98
+| Image shape:  (720, 480)
+| Saving in :  sensor-V2_1.jpg
+| Saving in :  sensor-V2_2.jpg
+| Saving in :  sensor-V2_3.jpg
+| Saving in :  sensor-V2_4.jpg
+| Saving in :  sensor-V2_5.jpg
+| Saving in :  sensor-V2_6.jpg
+| Saving in :  sensor-V2_7.jpg
+| Saving in :  sensor-V2_8.jpg
+| Saving in :  sensor-V2_9.jpg
+| Saving in :  sensor-V2_10.jpg
+┖-----------------------------
+<<< ./sensor-V2_1.jpg >>>
+[cmd] AT+HTTPPARA="CID",1
+> OK
+
+[cmd] AT+HTTPPARA="URL", "http://ccrcapi.isdc.org.tw/datapi_v1/camera_img"
+> OK
+
+[cmd] AT+HTTPPARA="CONTENT", "multipart/form-data; boundary=78ee2c269ea1cdfd889666bbae1dcd1d"
+> OK
+
+<class 'bytes'>
+size with getsize:  1797
+size with content-Length:  1780
+[cmd] AT+HTTPDATA=1780,10000
+> DOWNLOAD
+
+Waiting ..
+OK
+
+
+Waiting ........
+
+<-----Retrieved response from server----->
+
+Method:  1
+Status: 200
+ResLen: 94
+
+<-----Response Text----->
+
+[cmd] AT+HTTPREAD
+> +HTTPREAD: 94
+> File Name: sensor-V2_1.jpg
+> File Type: image/jpeg
+> File Size: 1.25 KB
+> OK1 sensor-V2
+> OK
+
+
+<<< ./sensor-V2_2.jpg >>>
+[cmd] AT+HTTPPARA="CID",1
+> OK
+
+[cmd] AT+HTTPPARA="URL", "http://ccrcapi.isdc.org.tw/datapi_v1/camera_img"
+> OK
+
+[cmd] AT+HTTPPARA="CONTENT", "multipart/form-data; boundary=676e4137db3888ed246baf445a88543e"
+> OK
+
+<class 'bytes'>
+size with getsize:  1765
+size with content-Length:  1748
+[cmd] AT+HTTPDATA=1748,10000
+> DOWNLOAD
+
+Waiting ..
+OK
+
+
+Waiting ..........
+
+<-----Retrieved response from server----->
+
+Method:  1
+Status: 200
+ResLen: 94
+
+<-----Response Text----->
+
+[cmd] AT+HTTPREAD
+> +HTTPREAD: 94
+> File Name: sensor-V2_2.jpg
+> File Type: image/jpeg
+> File Size: 1.21 KB
+> OK2 sensor-V2
+> OK
+
+
+<<< ./sensor-V2_3.jpg >>>
+[cmd] AT+HTTPPARA="CID",1
+> OK
+
+[cmd] AT+HTTPPARA="URL", "http://ccrcapi.isdc.org.tw/datapi_v1/camera_img"
+> OK
+
+[cmd] AT+HTTPPARA="CONTENT", "multipart/form-data; boundary=eda8019200373dca618dc53d7f14a876"
+> OK
+
+<class 'bytes'>
+size with getsize:  1748
+size with content-Length:  1731
+[cmd] AT+HTTPDATA=1731,10000
+> DOWNLOAD
+
+Waiting ..
+OK
+
+
+Waiting ..........
+
+<-----Retrieved response from server----->
+
+Method:  1
+Status: 200
+ResLen: 93
+
+<-----Response Text----->
+
+[cmd] AT+HTTPREAD
+> +HTTPREAD: 93
+> File Name: sensor-V2_3.jpg
+> File Type: image/jpeg
+> File Size: 1.2 KB
+> OK3 sensor-V2
+> OK
+
+
+<<< ./sensor-V2_4.jpg >>>
+[cmd] AT+HTTPPARA="CID",1
+> OK
+
+[cmd] AT+HTTPPARA="URL", "http://ccrcapi.isdc.org.tw/datapi_v1/camera_img"
+> OK
+
+[cmd] AT+HTTPPARA="CONTENT", "multipart/form-data; boundary=bfed9bf764502f0eb34db5ee34aba8be"
+> OK
+
+<class 'bytes'>
+size with getsize:  1767
+size with content-Length:  1750
+[cmd] AT+HTTPDATA=1750,10000
+> DOWNLOAD
+
+Waiting ..
+OK
+
+
+Waiting ........
+
+<-----Retrieved response from server----->
+
+Method:  1
+Status: 200
+ResLen: 94
+
+<-----Response Text----->
+
+[cmd] AT+HTTPREAD
+> +HTTPREAD: 94
+> File Name: sensor-V2_4.jpg
+> File Type: image/jpeg
+> File Size: 1.22 KB
+> OK4 sensor-V2
+> OK
+
+
+<<< ./sensor-V2_5.jpg >>>
+[cmd] AT+HTTPPARA="CID",1
+> OK
+
+[cmd] AT+HTTPPARA="URL", "http://ccrcapi.isdc.org.tw/datapi_v1/camera_img"
+> OK
+
+[cmd] AT+HTTPPARA="CONTENT", "multipart/form-data; boundary=bfb87b2a51e9a3e74f32395c221e44a7"
+> OK
+
+<class 'bytes'>
+size with getsize:  1774
+size with content-Length:  1757
+[cmd] AT+HTTPDATA=1757,10000
+> DOWNLOAD
+
+Waiting ..
+OK
+
+
+Waiting ........
+
+<-----Retrieved response from server----->
+
+Method:  1
+Status: 200
+ResLen: 94
+
+<-----Response Text----->
+
+[cmd] AT+HTTPREAD
+> +HTTPREAD: 94
+> File Name: sensor-V2_5.jpg
+> File Type: image/jpeg
+> File Size: 1.22 KB
+> OK5 sensor-V2
+> OK
+
+
+<<< ./sensor-V2_6.jpg >>>
+[cmd] AT+HTTPPARA="CID",1
+> OK
+
+[cmd] AT+HTTPPARA="URL", "http://ccrcapi.isdc.org.tw/datapi_v1/camera_img"
+> OK
+
+[cmd] AT+HTTPPARA="CONTENT", "multipart/form-data; boundary=00cf1842a7aa9def0a4ad175c838cb55"
+> OK
+
+<class 'bytes'>
+size with getsize:  1764
+size with content-Length:  1747
+[cmd] AT+HTTPDATA=1747,10000
+> DOWNLOAD
+
+Waiting ..
+OK
+
+
+Waiting .......
+
+<-----Retrieved response from server----->
+
+Method:  1
+Status: 200
+ResLen: 94
+
+<-----Response Text----->
+
+[cmd] AT+HTTPREAD
+> +HTTPREAD: 94
+> File Name: sensor-V2_6.jpg
+> File Type: image/jpeg
+> File Size: 1.21 KB
+> OK6 sensor-V2
+> OK
+
+
+<<< ./sensor-V2_7.jpg >>>
+[cmd] AT+HTTPPARA="CID",1
+> OK
+
+[cmd] AT+HTTPPARA="URL", "http://ccrcapi.isdc.org.tw/datapi_v1/camera_img"
+> OK
+
+[cmd] AT+HTTPPARA="CONTENT", "multipart/form-data; boundary=1ce5d156e61f9cfb100119820800868a"
+> OK
+
+<class 'bytes'>
+size with getsize:  1751
+size with content-Length:  1734
+[cmd] AT+HTTPDATA=1734,10000
+> DOWNLOAD
+
+Waiting ..
+OK
+
+
+Waiting .......
+
+<-----Retrieved response from server----->
+
+Method:  1
+Status: 200
+ResLen: 93
+
+<-----Response Text----->
+
+[cmd] AT+HTTPREAD
+> +HTTPREAD: 93
+> File Name: sensor-V2_7.jpg
+> File Type: image/jpeg
+> File Size: 1.2 KB
+> OK7 sensor-V2
+> OK
+
+
+<<< ./sensor-V2_8.jpg >>>
+[cmd] AT+HTTPPARA="CID",1
+> OK
+
+[cmd] AT+HTTPPARA="URL", "http://ccrcapi.isdc.org.tw/datapi_v1/camera_img"
+> OK
+
+[cmd] AT+HTTPPARA="CONTENT", "multipart/form-data; boundary=db3cd4dc65f596eb9d7bb76c3d0e4de0"
+> OK
+
+<class 'bytes'>
+size with getsize:  1748
+size with content-Length:  1731
+[cmd] AT+HTTPDATA=1731,10000
+> DOWNLOAD
+
+Waiting ..
+OK
+
+
+Waiting ........
+
+<-----Retrieved response from server----->
+
+Method:  1
+Status: 200
+ResLen: 93
+
+<-----Response Text----->
+
+[cmd] AT+HTTPREAD
+> +HTTPREAD: 93
+> File Name: sensor-V2_8.jpg
+> File Type: image/jpeg
+> File Size: 1.2 KB
+> OK8 sensor-V2
+> OK
+
+
+<<< ./sensor-V2_9.jpg >>>
+[cmd] AT+HTTPPARA="CID",1
+> OK
+
+[cmd] AT+HTTPPARA="URL", "http://ccrcapi.isdc.org.tw/datapi_v1/camera_img"
+> OK
+
+[cmd] AT+HTTPPARA="CONTENT", "multipart/form-data; boundary=4304cbdcdc04278a08ac45ba09e7eb55"
+> OK
+
+<class 'bytes'>
+size with getsize:  1737
+size with content-Length:  1720
+[cmd] AT+HTTPDATA=1720,10000
+> DOWNLOAD
+
+Waiting ..
+OK
+
+
+Waiting ........
+
+<-----Retrieved response from server----->
+
+Method:  1
+Status: 200
+ResLen: 94
+
+<-----Response Text----->
+
+[cmd] AT+HTTPREAD
+> +HTTPREAD: 94
+> File Name: sensor-V2_9.jpg
+> File Type: image/jpeg
+> File Size: 1.19 KB
+> OK9 sensor-V2
+> OK
+
+
+<<< ./sensor-V2_10.jpg >>>
+[cmd] AT+HTTPPARA="CID",1
+> OK
+
+[cmd] AT+HTTPPARA="URL", "http://ccrcapi.isdc.org.tw/datapi_v1/camera_img"
+> OK
+
+[cmd] AT+HTTPPARA="CONTENT", "multipart/form-data; boundary=6404f9a56e74633b6c2d32f4a297ae83"
+> OK
+
+<class 'bytes'>
+size with getsize:  1743
+size with content-Length:  1726
+[cmd] AT+HTTPDATA=1726,10000
+> DOWNLOAD
+
+Waiting ..
+OK
+
+
+Waiting ........
+
+<-----Retrieved response from server----->
+
+Method:  1
+Status: 200
+ResLen: 179
+
+<-----Response Text----->
+
+[cmd] AT+HTTPREAD
+> +HTTPREAD: 179
+> File Name: sensor-V2_10.jpg
+> File Type: image/jpeg
+> File Size: 1.19 KB
+> OK10 sensor-V2
+> 
+> Filename with time: sensor-V2_2019-11-11 17:48:45.jpg
+> Finish Merging Photo
+> OK
+
+

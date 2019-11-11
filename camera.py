@@ -53,7 +53,7 @@ class Camera:
             y1 = (i+1) * new_height
             # print((y0, x0, y1, x1))
             tmp = img.crop((x0, y0, x1, y1))
-            new_filename = 'test_%d.jpg' % (i+1)
+            new_filename = 'sensor-V2_%d.jpg' % (i+1)
             tmp.save(new_filename)
             print("| Saving in : ", new_filename)
 

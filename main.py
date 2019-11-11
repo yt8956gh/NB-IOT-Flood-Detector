@@ -56,21 +56,23 @@ def sensor():
     for pin in pin_input:
         GPIO.setup(pin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
     
+    level_count = -1
+
     for i in range(len(pin_input)):
         if GPIO.input(pin_input[i]):
-            level = i
+            level_count = i
 
     print("Level: " + str(level))
 
-    nbiot.send_data("test", level[i], 100)
+    nbiot.send_data("sensor-V2", 0 if level_count==-1 else level[level_count], 100)
     
     GPIO.output(2, 1)
-    cm.capturePhoto()
+    cm.capturePhoto('sensor-V2.jpg')
     GPIO.output(2, 0)
 
     for i in range(10):
-        print("<<< ./test_%d.jpg >>>" % (i+1))
-        nbiot.send_file("./test_%d.jpg" % (i+1))
+        print("<<< ./sensor-V2_%d.jpg >>>" % (i+1))
+        nbiot.send_file("./sensor-V2_%d.jpg" % (i+1))
     
     # transfer_file_wifi()
 

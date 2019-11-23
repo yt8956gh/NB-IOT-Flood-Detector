@@ -66,6 +66,7 @@ class NBiot:
             print("Hint: There are \\r\\n in command.")
         else:
             cmd+="\r\n"
+            
 
         self.ser.write(cmd.encode('ascii'))
         sleep(1)
@@ -134,7 +135,9 @@ class NBiot:
 
             if self.ser.isOpen():
                 
-                cmd = "AT+HTTPDATA=%d,%d" % (size, 10000)
+                latency = 10000 if size*2<10000 else size*2
+                
+                cmd = "AT+HTTPDATA=%d,%d" % (size, latency)
                 self.send_cmd(cmd)
                 sleep(1)
                 (self.ser.write(data, ))
@@ -195,7 +198,9 @@ class NBiot:
 
         if self.ser.isOpen():
             
-            cmd = "AT+HTTPDATA=%d,%d" % (size, 10000)
+            latency = 5000 if size*2<1000 else size*2
+
+            cmd = "AT+HTTPDATA=%d,%d" % (size, latency)
             self.send_cmd(cmd)
             sleep(1)
             (self.ser.write(data.encode(), ))

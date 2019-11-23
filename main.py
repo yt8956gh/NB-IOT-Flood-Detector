@@ -52,6 +52,8 @@ def sensor():
 
     GPIO.setmode(GPIO.BCM)
     GPIO.setup(2,GPIO.OUT) # for camera IR LED
+    GPIO.setup(3,GPIO.OUT) # for camera IR LED
+    GPIO.setup(4,GPIO.OUT) # for camera IR LED
 
     for pin in pin_input:
         GPIO.setup(pin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
@@ -67,13 +69,18 @@ def sensor():
     nbiot.send_data("sensor-V2", 0 if level_count==-1 else level[level_count], 100)
     
     GPIO.output(2, 1)
+    GPIO.output(3, 1)
+    GPIO.output(4, 1)
     cm.capturePhoto('sensor-V2.jpg')
     GPIO.output(2, 0)
+    GPIO.output(3, 0)
+    GPIO.output(4, 0)
 
     for i in range(10):
         print("<<< ./sensor-V2_%d.jpg >>>" % (i+1))
         nbiot.send_file("./sensor-V2_%d.jpg" % (i+1))
     
+    # nbiot.send_file("./sensor-V2.jpg")
     # transfer_file_wifi()
 
 

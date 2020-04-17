@@ -11,7 +11,7 @@ class Camera:
     def __init__(self):
 
         self.cm = PiCamera()
-        self.cm.resolution = (720,480)
+        self.cm.resolution = (1080,720)
         # self.cm.rotation = 180
         
 
@@ -29,6 +29,7 @@ class Camera:
         before_size = os.path.getsize(file_path)
         # print("| Before Size: ", before_size)
 
+        im.save('./imgQR.jpg', optimize=True)
         im.save(file_path, optimize=True, quality=quality)
 
         after_size = os.path.getsize(file_path)
